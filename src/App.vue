@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header @searchKeyword="searchMovies" />
-    <Main :SearchMovie="SearchMovie"/>
+    <Main :searcheredMovie="searcheredMovie"/>
   </div>
 </template>
 
@@ -19,26 +19,26 @@ export default {
 
   data() {
     return {
-      SearchMovie: '',
+      searcheredMovie: '',
       apiMoviesURL: 'https://api.themoviedb.org/3/search/movie?api_key=990553a5085849ae45ce07713d45c579&query=',
     }
   },
 
   methods: {
+    /**
+     * call API and print the results on screan
+     */
     searchMovies(userSearch) {
-     // console.log('ricerca film', userSearch);
-      this.SearchMovie = userSearch;
-      if(this.SearchMovie !== '') {
-                 return axios.get(this.apiMoviesURL + this.SearchMovie)
-                    .then((res) => {
-                        // this.test = res.data;
-                        this.SearchMovie = res.data;
-                        console.log(res.data);
-                    }).catch((error) => {
-                        console.log(error);
-                    })
-            }
-      //console.log(this.search);
+      this.searcheredMovie = userSearch;
+      if(this.searcheredMovie !== '') {
+        return axios.get(this.apiMoviesURL + this.searcheredMovie)
+          .then((res) => {
+              this.searcheredMovie = res.data.results;
+              console.log(this.searcheredMovie);
+          }).catch((error) => {
+              console.log(error);
+          })
+      }
     }
   }
 }
