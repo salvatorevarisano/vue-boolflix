@@ -1,6 +1,7 @@
 <template>
   <main>
       <ul v-for="(movie, i) in searcheredMovie" :key="i">
+          <li> <img :src="imagePathURLPartOne + movie.poster_path" :alt="movie.title || movie.name" class="poster"></li>
           <li>{{movie.title || movie.name}}</li>
           <li>{{movie.original_title || movie.original_name}}</li>
           <!-- <li>{{printFlag(movie.original_language)}}</li>  -->
@@ -20,6 +21,7 @@ export default {
     data() {
         return {
             flags: ['it', 'en'],
+            imagePathURLPartOne: 'https://image.tmdb.org/t/p/w500/'
         }
     },
     methods: {
@@ -44,5 +46,7 @@ export default {
     .flag {
         width: 20px;
     }
-
+    .poster {
+        height: 300px;
+    }
 </style>
