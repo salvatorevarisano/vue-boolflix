@@ -4,7 +4,7 @@
           <li>{{movie.title}}</li>
           <li>{{movie.original_title}}</li>
           <!-- <li>{{printFlag(movie.original_language)}}</li>  -->
-          <li v-if="hasFlag(movie.original_language)"><img class="flag" :src="require(`../assets/img/${movie.original_language}.png`)"></li>
+          <li v-if="hasFlag(movie.original_language)"><img class="flag" :src="require(`../assets/img/${movie.original_language}.png`)" :alt="movie.original_language"></li>
           <li v-else >{{movie.original_language}}</li>
           <li>{{movie.vote_average}}</li>
 
@@ -20,8 +20,6 @@ export default {
     data() {
         return {
             flags: ['it', 'en'],
-            flag: false,
-
         }
     },
     methods: {
@@ -35,7 +33,7 @@ export default {
 
         hasFlag(language) {
             if(this.flags.includes(language)){
-                return this.flag = true;
+                return true;
             }
         },
     }

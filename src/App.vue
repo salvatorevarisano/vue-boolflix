@@ -21,6 +21,7 @@ export default {
     return {
       searcheredMovie: '',
       apiMoviesURL: 'https://api.themoviedb.org/3/search/movie?api_key=990553a5085849ae45ce07713d45c579&query=',
+      apiTvURL: 'https://api.themoviedb.org/3/search/tv?api_key=990553a5085849ae45ce07713d45c579&query=',
     }
   },
 
@@ -31,13 +32,18 @@ export default {
     searchMovies(userSearch) {
       this.searcheredMovie = userSearch;
       if(this.searcheredMovie !== '') {
-        return axios.get(this.apiMoviesURL + this.searcheredMovie)
-          .then((res) => {
-              this.searcheredMovie = res.data.results;
-              console.log(this.searcheredMovie);
-          }).catch((error) => {
-              console.log(error);
-          })
+        const requestOne = axios.get(this.apiMoviesURL + this.searcheredMovie);
+        const requestTwo = axios.get(this.apiTvURL + this.searcheredMovie);
+        axios.all([requestOne, requestTwo]).then(axios.spread((...responses) => {
+          const responseOne =  responses[0].data.results
+          const responseTwo =  responses[1].data.results
+          this.searcheredMovie = responseOne.concat(responseTwo)
+          // console.log(responseOne);
+          // console.log(responseTwo);
+          // console.log(this.searcheredMovie);
+        })).catch(errors => {
+            console.log(errors);
+        })
       }
     }
   }
