@@ -1,8 +1,8 @@
 <template>
   <main>
       <ul v-for="(movie, i) in searcheredMovie" :key="i">
-          <li>{{movie.title}}</li>
-          <li>{{movie.original_title}}</li>
+          <li>{{movie.title || movie.name}}</li>
+          <li>{{movie.original_title || movie.original_name}}</li>
           <!-- <li>{{printFlag(movie.original_language)}}</li>  -->
           <li v-if="hasFlag(movie.original_language)"><img class="flag" :src="require(`../assets/img/${movie.original_language}.png`)" :alt="movie.original_language"></li>
           <li v-else >{{movie.original_language}}</li>
