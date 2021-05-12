@@ -20,8 +20,10 @@ export default {
   data() {
     return {
       searcheredMovie: '',
-      apiMoviesURL: 'https://api.themoviedb.org/3/search/movie?api_key=990553a5085849ae45ce07713d45c579&query=',
-      apiTvURL: 'https://api.themoviedb.org/3/search/tv?api_key=990553a5085849ae45ce07713d45c579&query=',
+      apiURL: 'https://api.themoviedb.org/3/search/',
+      apiKey: '990553a5085849ae45ce07713d45c579',
+      movieList: [],
+      tvList: [],
     }
   },
 
@@ -30,17 +32,21 @@ export default {
      * call API and print the results on screan
      */
     searchMovies(userSearch) {
-      this.searcheredMovie = userSearch;
-      if(this.searcheredMovie !== '') {
-        const requestOne = axios.get(this.apiMoviesURL + this.searcheredMovie);
-        const requestTwo = axios.get(this.apiTvURL + this.searcheredMovie);
-        axios.all([requestOne, requestTwo]).then(axios.spread((...responses) => {
-          const responseOne =  responses[0].data.results
-          const responseTwo =  responses[1].data.results
-          this.searcheredMovie = responseOne.concat(responseTwo)
-          // console.log(responseOne);
-          // console.log(responseTwo);
-          // console.log(this.searcheredMovie);
+      if(this.userSearch !== '') {
+        const requestMovie = axios.get(this.apiURL + 'movie', {
+          params: {
+            api_key: this.apiKey,
+            query: userSearch,
+          }});
+          const requestTv = axios.get(this.apiURL + 'tv', {
+          params: {
+            api_key: this.apiKey,
+            query: userSearch,
+          }});
+        axios.all([requestMovie, requestTv]).then(axios.spread((...responses) => {
+          this.movieList =  responses[0].data.results
+          this.tvList =  responses[1].data.results
+          this.searcheredMovie = this.movieList.concat(this.tvList)
         })).catch(errors => {
             console.log(errors);
         })
