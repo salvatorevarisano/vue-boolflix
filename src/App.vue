@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <Header @searchKeyword="searchMovies" />
-    <Main :searcheredMovie="searcheredMovie"/>
+    <Main :searcheredMovie="searcheredMovie" :DiscoverMovieList="DiscoverMovieList"
+    :DiscoverTvList="DiscoverTvList"/>
   </div>
 </template>
 
@@ -20,11 +21,34 @@ export default {
   data() {
     return {
       searcheredMovie: '',
-      apiURL: 'https://api.themoviedb.org/3/search/',
+      apiURL: 'https://api.themoviedb.org/3/',
       apiKey: '990553a5085849ae45ce07713d45c579',
       movieList: [],
       tvList: [],
+      DiscoverMovieList: [],
+      DiscoverTvList: [],
+
     }
+  },
+
+  created() {
+    // discover
+    const requestDiscoverMovie = axios.get(this.apiURL + 'discover/movie', {
+      params: {
+            api_key: this.apiKey,
+      }
+    });
+    const requestDiscoverTv = axios.get(this.apiURL + 'discover/tv', {
+      params: {
+            api_key: this.apiKey,
+      }
+    });
+    axios.all([requestDiscoverMovie, requestDiscoverTv]).then(axios.spread((...responses) => {
+          this.DiscoverMovieList =  responses[0].data.results
+          this.DiscoverTvList =  responses[1].data.results
+        })).catch(errors => {
+            console.log(errors);
+        })
   },
 
   methods: {
@@ -33,12 +57,12 @@ export default {
      */
     searchMovies(userSearch) {
       if(this.userSearch !== '') {
-        const requestMovie = axios.get(this.apiURL + 'movie', {
+        const requestMovie = axios.get(this.apiURL + 'search/movie', {
           params: {
             api_key: this.apiKey,
             query: userSearch,
           }});
-          const requestTv = axios.get(this.apiURL + 'tv', {
+          const requestTv = axios.get(this.apiURL + 'search/tv', {
           params: {
             api_key: this.apiKey,
             query: userSearch,
