@@ -83,6 +83,12 @@ export default {
 <style lang="scss">
 
   @import '@/assets/style/general.scss';
+  @import '~@fontsource/rubik/300.css';
+  @import '~@fontsource/rubik/index.css';
+  @import '~@fontsource/rubik/600.css';
+  @import '~@fontsource/rubik/700.css';
+
+
 
 
 </style>

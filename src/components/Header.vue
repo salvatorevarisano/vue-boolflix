@@ -1,6 +1,6 @@
 <template>
   <header>
-        <h1>
+        <h1 class="brand">
             <a href="#">
               <img src="https://fontmeme.com/permalink/210512/c072857f28ffed69c9266a55183f4c20.png" alt="boolflix">
             </a>
@@ -25,18 +25,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    
+    @import '@/assets/style/vars.scss';
+    @import '@/assets/style/mixins.scss';
+
     header {
-        display: flex;
+        @include flex-center('vertical');
         justify-content: space-between;
-        align-items: center;
+        padding-right: 10px; // test
         height: 90px;
         .brand {
-            height: 100%;
-
-            svg {
-                height: 100%;
-                fill: #e50914;
+            img {
+                display: block;
             }
+
+
         }
     }
 </style>
