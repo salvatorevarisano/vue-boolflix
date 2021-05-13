@@ -38,7 +38,7 @@ export default {
 
     data() {
         return {
-             flags: ['it', 'en'],
+             flags: ['it', 'en', 'fr', 'de', 'es'],
             imagePathURLPartOne: 'https://image.tmdb.org/t/p/w342/',
         }
     },
@@ -60,11 +60,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+    @import '@/assets/style/vars.scss';
+    // @import '@/assets/style/mixins.scss';
+
+    .card {
+        position:relative;
+        flex-shrink: 0;
+        width: 300px;
+        margin: 5px;
+        background: rgba($color: #f2e, $alpha: 1.0) ; //test
+         .poster {
+             display: block;
+             width: 100%;
+             height: 100%;
+             object-fit: cover;
+         }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            // @include flex-center();
+            width: 100%;
+            height: 100%;
+            background:rgba($color: #f00000, $alpha: .2); //test
+            color: $text-color;
+        }
+    }
      .flag {
         width: 20px;
-    }
-    .poster {
-
-        width: 300px;
     }
 </style>
