@@ -28,6 +28,7 @@
                     <span v-else >
                         <i class="far fa-star" v-for="(emptyStar, i) in  5" :key="'fes' + i"></i>
                     </span>
+                    <div>details</div>
                 </div>
             </div>
         </div>
