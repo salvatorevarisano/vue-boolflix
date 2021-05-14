@@ -1,6 +1,7 @@
 <template>
   <main>
-      <section>
+      <section v-show="searcheredMovie.length > 0">
+          <h2>Results of research</h2>
           <div class="cards-container">
               <Card  v-for="movie in searcheredMovie" :key="movie.id" :movie="movie"/>
           </div>
@@ -36,9 +37,10 @@ export default {
 
 <style lang="scss" scoped>
    section {
-       background:rgba(45, 89, 200, 0.3); //test
        .cards-container {
            display: flex;
+           margin-top: 15px;
+           margin-bottom: 30px;
            overflow-y: auto;
        }
    }
