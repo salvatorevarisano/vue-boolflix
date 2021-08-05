@@ -28,7 +28,7 @@
                     <span v-else >
                         <i class="far fa-star" v-for="(emptyStar, i) in  5" :key="'fes' + i"></i>
                     </span>
-                    <div>details</div>
+                    <div class="click-me cta" @click="$emit('getDetails', currentMovie)" >details</div>
                 </div>
             </div>
         </div>
@@ -43,6 +43,7 @@ export default {
         return {
             flags: ['it', 'en', 'fr', 'de', 'es'],
             imagePathURLPartOne: 'https://image.tmdb.org/t/p/w342/',
+            currentMovie: this.movie,
         }
     },
     methods: {
@@ -97,14 +98,24 @@ export default {
             border-radius: 15px 15px 0 0;
             transition: 0.8s;
 
-            & > div > * {
-                margin-bottom: 10px;
+            & > div {
+                width: 100%;
+                & > * {
+                    margin-bottom: 10px;
+                }
             }
             h2 {
                 font-size: 1.3rem;
             };
             h3 {
                 font-size: 1rem;
+            }
+            .cta {
+                width: 40%;
+                margin: 20px auto;
+                padding:10px;
+                border: 1px solid currentColor;
+                border-radius:15px;
             }
            
         }
